@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            let spr = ['scissors', 'paper', 'rock'];
+
+            //computer selection
+            let computerAsk = () => {
+                let random = Math.floor(Math.random()*3);
+                let compChoice = spr[random];
+                return compChoice
+            }
+
+            //player selection
+            let playerAsk = () => {
+            let playerChoice = prompt('Scissors, Paper or Rock? :');
+            return playerChoice
+            }
+            
+            //play a round
+            let playRound = (playerChoice = playerAsk(), computerChoice =computerAsk()) => {
+
+                console.log(playerChoice);
+                console.log(computerChoice);
+
+                if (playerChoice == 'rock') {
+                    if (computerChoice == 'scissors') {
+                        return('You win, r beats s!')
+                    } else if (computerChoice == 'rock') {
+                        return('Alas, a draw r v r!')
+                    } else {
+                        return('Sorry, you lose r v p..')
+                    }
+                } else if (playerChoice == 'scissors') {
+                    if (computerChoice == 'paper') {
+                        return('You win, s beats p!')
+                    } else if (computerChoice == 'scissors') {
+                        return('Alas, a draw s v s!')
+                    } else {
+                        return('Sorry, you lose s v r..')
+                    }
+                } else if (playerChoice == 'paper') {
+                    if (computerChoice == 'rock') {
+                        return('You win, p beats r!')
+                    } else if (computerChoice == 'paper') {
+                        return('Alas, a draw p v p!')
+                    } else {
+                        return('Sorry, you lose p v s..')
+                    }
+                } else {
+                    return 'error..'
+                }
+                }
+
+            //The 5 round game game, with totals
+            let game = () => {
+                let yourScore = 0;
+                let compScore = 0;
+                let regexWin = /win/;
+                let regexDraw = /draw/;
+
+                for ( i = 0 ; i<5 ; i++ ) {
+                    let roundResult = playRound();
+
+                    if (regexWin.test(roundResult)) {
+                        yourScore++;
+                    } else if (!regexDraw.test(roundResult)) {
+                        compScore++;
+                    }
+
+                    //print round result
+                    console.log(roundResult);
+                    
+                    //print total score
+                    console.log(`Your score: ${yourScore} - Computer's Score: ${compScore}`);
+                }
+
+                if (compScore>yourScore) {
+                    console.log('Sorry, you lost.. The AI are taking over..')
+                } else if (yourScore>compScore) {
+                    console.log('You won! Woe to the vanquished.')
+                } else if (yourScore==compScore) {
+                    console.log('A Clash of man and machine.. They are each others equal.')
+                } else {
+                    console.log('error..')
+                }
+                }
+        </script>
+    </head>
+</html>
